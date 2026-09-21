@@ -8,6 +8,16 @@ const generateTokens = (id, role) => {
     }
 } 
 
+const verifyRefreshToken = (token) => {
+    return jwt.verify(token, config.REFRESH_TOKEN_KEY);
+} 
+
+const verifyAccessToken = (token) => {
+    return jwt.verify(token, config.ACCESS_TOKEN_KEY);
+} 
+
 export {
-    generateTokens
+    generateTokens,
+    verifyRefreshToken, 
+    verifyAccessToken
 }
