@@ -1,6 +1,7 @@
 import express, { Router } from "express"
 import authRouter from "../routes/auth.router.js";
 import cookieParser from "cookie-parser"
+import productRouter from "../routes/product.routes.js";
 const app = express();
 
 app.get("/", (req, res) => {
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api/auth", authRouter)
+app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter)
 
 export default app;
