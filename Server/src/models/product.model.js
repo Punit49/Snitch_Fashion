@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const productSchema = new mongoose.Schame({
+const productSchema = new mongoose.Schema({
     title: {
         type: String, 
-        minLength: [30, "Minimum length of product title should be 30 characters"],
-        minLength: [100, "Maximum length of product title can be 100 characters"],
+        minLength: [20, "Minimum length of product title should be 20 characters"],
+        maxLength: [100, "Maximum length of product title can be 100 characters"],
         required: [true, "Product title is required"]
     }, 
     description: {
@@ -13,13 +13,14 @@ const productSchema = new mongoose.Schame({
         minLength: [80, "Minimum length of description should be 80 characters"],
         maxLength: [200, "Maximum length of description can be 200 characters"],
     }, 
-    images: [{
-        type: String, 
+    images: {
+        type: [String],
+        required: true,
         validate: {
             validator: images => images.length >= 1 && images.length <= 5 ,
             message: "A product can only have 1 to 5 images"
         }
-    }],
+    },
     price: {
         amount: {
             type: String, 
