@@ -35,6 +35,7 @@ export const productValidation = [
         .exists().withMessage("Stock is required in every stock object").bail()
         .isNumeric().withMessage("Stock must be of number type").bail()
         .isInt({min: 0}).withMessage("Minimum value of stock must be 0"),
+        // images
     (req, res, next) => {
         const err = validationResult(req);
         if(!err.isEmpty()){

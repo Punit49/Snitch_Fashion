@@ -1,7 +1,8 @@
 import ImageKit, { toFile } from "@imagekit/nodejs"
+import config from "../config/dotenv.config";
 
 const client = new ImageKit({
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY
+    privateKey: config.IMAGEKIT_PRIVATE_KEY
 });
 
 export const uploadFile = async ({buffer, fileName}) => {
