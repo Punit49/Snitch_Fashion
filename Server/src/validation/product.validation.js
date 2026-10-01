@@ -1,4 +1,5 @@
-import { body, validationResult } from "express-validator";
+import { param, body } from "express-validator";
+import expressValidation from "../middlewares/express.validator.js";
 
 export const productValidation = [
     body("title")   
@@ -15,7 +16,7 @@ export const productValidation = [
     body('price')
         .exists().withMessage("Price Field is Required").bail()
         .isObject().withMessage("Price field must be an object"),
-    body("price.amount")
+    body("price.amount") 
         .exists().withMessage("Price Is required").bail()
         .isNumeric().withMessage("Price must be number").bail()
         .isFloat({min: 0.1}).withMessage("Price must be a float number"),        
@@ -36,15 +37,23 @@ export const productValidation = [
         .isNumeric().withMessage("Stock must be of number type").bail()
         .isInt({min: 0}).withMessage("Minimum value of stock must be 0"),
         // images
-    (req, res, next) => {
-        const err = validationResult(req);
-        if(!err.isEmpty()){
-            return res.status(422).json({
-                success: false, 
-                message: "Validation Failed",
-                errors: err.array()
-            })
-        }
-        next();
-    }
+    expressValidation
 ] 
+
+export const unlistProductValiation = [
+    param('id')
+        .exists().withMessage("Product ID is required").bail()
+        .isString().withMessage("Product ID must be a string").bail()
+        .trim().notEmpty().withMessage("Product ID can't be empty").bail()
+        .isMongoId().withMessage("Product ID must be a valid Mongo ID"),
+    expressValidation
+]
+
+export const listProductValidation = [
+    param('id')
+        .exists().withMessage("Product ID is required").bail()
+        .isString().withMessage("Product ID must be a string").bail()
+        .trim().notEmpty().withMessage("Product ID can't be empty").bail()
+        .isMongoId().withMessage("Product ID must be a valid Mongo ID"),
+    expressValidation
+]

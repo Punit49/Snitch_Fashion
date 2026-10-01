@@ -3,7 +3,7 @@ import config from "../config/dotenv.config.js";
 
 const generateTokens = (id, role) => {
     return {
-        accessToken: jwt.sign({id, role}, config.ACCESS_TOKEN_KEY, {expiresIn: "15m"}),
+        accessToken: jwt.sign({id, role}, config.ACCESS_TOKEN_KEY, {expiresIn: "1d"}),
         refreshToken: jwt.sign({id, role}, config.REFRESH_TOKEN_KEY, {expiresIn: "7d"}),
     }
 } 

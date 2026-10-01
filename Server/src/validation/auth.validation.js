@@ -1,4 +1,5 @@
-import {body, validationResult} from "express-validator"
+import {body } from "express-validator"
+import expressValidation from "../middlewares/express.validator.js";
 
 const registerValidation = [
     body("email")
@@ -12,17 +13,7 @@ const registerValidation = [
         .isString().withMessage("Password must be a string").bail()
         .trim().notEmpty().withMessage("Password is required").bail()
         .isLength({min: 6, max: 20}).withMessage("Password should be between 6 to 20 characters"),
-    (req, res, next) => {
-        const err = validationResult(req);
-        if(!err.isEmpty()){
-            return res.status(422).json({
-                success: false, 
-                message: "Validation Failed",
-                errors: err.array()
-            })
-        }
-        next();
-    }
+    expressValidation
 ]
 
 const loginValidation = [
@@ -33,17 +24,7 @@ const loginValidation = [
         .isString().withMessage("Password Must be a of string type").bail()
         .trim().notEmpty().withMessage("Password is required").bail()
         .isLength({min: 6, max: 30}).withMessage("Password should be between 6 to 30 characters"),
-    (req, res, next) => {
-        const err = validationResult(req);
-        if(!err.isEmpty()){
-            return res.status(422).json({
-                success: false,
-                message: "Login Validation Failed",
-                errors: err.array()
-            })
-        }
-        next();
-    }
+    expressValidation
 ]
 
 export {

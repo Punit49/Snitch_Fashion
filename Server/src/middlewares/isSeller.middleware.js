@@ -4,7 +4,7 @@ const isSeller = (req, res, next) => {
         if(!user || user.role != "seller"){
             return res.status(403).json({
                 success: false,
-                message: "Access Denied, Seller Resources only"
+                message: "Access Denied, Seller Resource only"
             })
         }
         next();
